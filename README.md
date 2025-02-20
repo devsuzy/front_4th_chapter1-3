@@ -42,7 +42,7 @@
 3. 두 객체의 key 목록을 가져와 키 갯수가 다르다면 `false`를 반환
 4. objA의 key를 순회하여 objB에 key가 없거나 objA의 키와 objB의 키가 다르다면 `false`를 반환
 
-```
+```typescript
 export function shallowEquals<T>(objA: T, objB: T): boolean {
   if (objA === objB) return true;
 
@@ -80,7 +80,7 @@ export function shallowEquals<T>(objA: T, objB: T): boolean {
 6. 두 객체의 key 목록을 가져와 키 갯수가 다르다면 `false`를 반환
 7. objA의 key를 순회하여 objB에 key가 존재하는지 확인하고, **키의 값이 재귀적으로 동일한지 `deepEquals`함수로 비교**
 
-```
+```typescript
 export function deepEquals(objA: unknown, objB: unknown): boolean {
   if (objA === objB) return true;
 
@@ -168,7 +168,7 @@ export function deepEquals(objA: unknown, objB: unknown): boolean {
 그래서 `deepEquals` 함수의 매개변수 타입을 더 일반화해서 `unknown` 값을 받을 수 있도록 수정하였습니다.
 
 - AS-IS
-```
+```typescript
 export function deepEquals<T extends Record<string, unknown>>(objA: T, objB: T): boolean {
  // 배열 확인 부분 코드 생략
  ...
@@ -189,7 +189,7 @@ export function deepEquals<T extends Record<string, unknown>>(objA: T, objB: T):
 ```
 
 - TO-BE
-```
+```typescript
 export function deepEquals<T extends Record<string, unknown>>(objA: T, objB: T): boolean {
  // 배열 확인 부분 코드 생략
  ...
@@ -225,7 +225,7 @@ export function deepEquals<T extends Record<string, unknown>>(objA: T, objB: T):
 3. props가 동일하면 새로 컴포넌트를 생성하지 않고 기존 컴포넌트를 반환
 4. props가 달라지면 새로운 컴포넌트를 생성하여 저장하고 반환
 
-```
+```typescript
 import { shallowEquals } from "../equalities";
 import { ComponentType, createElement, ReactElement, useRef } from "react";
 
@@ -348,14 +348,14 @@ returnOptions(options);
 **3. 타입 스크립트를 더 잘 쓰는 방법**
 - 함수의 반환타입을 명시하여 의도를 표현하기
   - 타입 추론에 의존하지 않고 의도 타입으로 명시한다. 
-```
+```typescript
 const addZero = (num: number): string => {
   return Math.floor(num / 10) === 0 ? 0${num} : String(num);
 }
 ```
 - 규별된 유니온 사용하기
   - 유니온의 인터페이스 보다는 인터페이스의 유니온을 사용하라
-```
+```typescript
 export declare type QueryObserverResult<TData = unknown, TError = unknown> = 
   |  QueryObserverIdleResult<TData, TError>,
   |  QueryObserverLoadingErrorResult<TData, TError>,
@@ -366,7 +366,7 @@ export declare type QueryObserverResult<TData = unknown, TError = unknown> =
 
 - any 잘 쓰기
   - 함수 안으로 any를 감추고, 반환 타입만 잘 명시해두면 any가 전파되지 않는다.
-```
+```typescript
 const parseMember = (
   member: Member[]
 ): Record<"frontend" | "backend", Member[]>  =>  {
@@ -420,7 +420,7 @@ const parseMember = (
 감싸는 순서가 단순히 UI적으로 보여지는 측면일까요?<br/>
 아니면 어떤 이유로 위와 같이 구현해야지만 정상 작동하는지 궁금합니다.
 
-```
+```typescript
 import {
   ComplexForm,
   Header,
